@@ -768,4 +768,8 @@ public class TestPlayer implements Player {
     public int getExpToLevel() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    public void sendMessage(String message, String permission) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

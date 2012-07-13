@@ -6,6 +6,14 @@ import org.bukkit.permissions.Permissible;
 public interface CommandSender extends Permissible {
 
     /**
+     * Sends this sender a message that is part of a broadcast
+     *
+     * @param message Message to be displayed
+     * @param permission Permission name that was required for broadcast receipt; null if not a broadcast
+     */
+    public void sendMessage(String message, String permission);
+
+    /**
      * Sends this sender a message
      *
      * @param message Message to be displayed

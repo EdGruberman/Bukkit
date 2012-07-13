@@ -289,9 +289,9 @@ public abstract class Command {
                 CommandSender target = (CommandSender) user;
 
                 if (target instanceof ConsoleCommandSender) {
-                    target.sendMessage(result);
+                    target.sendMessage(result, Server.BROADCAST_CHANNEL_ADMINISTRATIVE);
                 } else if (target != source) {
-                    target.sendMessage(colored);
+                    target.sendMessage(colored, Server.BROADCAST_CHANNEL_ADMINISTRATIVE);
                 }
             }
         }
