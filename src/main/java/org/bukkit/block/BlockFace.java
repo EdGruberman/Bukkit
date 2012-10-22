@@ -1,7 +1,8 @@
 package org.bukkit.block;
 
 /**
- * Represents the face of a block
+ * Represents the face of a block (older coordinate system)
+ * @see BlockDirection
  */
 public enum BlockFace {
     NORTH(-1, 0, 0),
@@ -128,5 +129,30 @@ public enum BlockFace {
         }
 
         return BlockFace.SELF;
+    }
+    
+    public BlockDirection toBlockDirection() {
+        switch (this) {
+        case NORTH: return BlockDirection.WEST;
+        case EAST: return BlockDirection.NORTH;
+        case SOUTH: return BlockDirection.EAST;
+        case WEST: return BlockDirection.SOUTH;
+        case UP: return BlockDirection.UP;
+        case DOWN: return BlockDirection.DOWN;
+        case NORTH_EAST: return BlockDirection.NORTH_WEST;
+        case NORTH_WEST: return BlockDirection.SOUTH_WEST;
+        case SOUTH_EAST: return BlockDirection.NORTH_EAST;
+        case SOUTH_WEST: return BlockDirection.SOUTH_EAST;        
+        case WEST_NORTH_WEST: return BlockDirection.SOUTH_SOUTH_WEST;
+        case NORTH_NORTH_WEST: return BlockDirection.WEST_SOUTH_WEST;
+        case NORTH_NORTH_EAST: return BlockDirection.WEST_NORTH_WEST;
+        case EAST_NORTH_EAST: return BlockDirection.NORTH_NORTH_WEST;
+        case EAST_SOUTH_EAST: return BlockDirection.NORTH_NORTH_EAST;
+        case SOUTH_SOUTH_EAST: return BlockDirection.EAST_NORTH_EAST;
+        case SOUTH_SOUTH_WEST: return BlockDirection.EAST_SOUTH_EAST;
+        case WEST_SOUTH_WEST: return BlockDirection.SOUTH_SOUTH_EAST;
+        case SELF: return BlockDirection.SELF;
+    }
+    throw new IllegalStateException("unrecognized BlockFace");
     }
 }
