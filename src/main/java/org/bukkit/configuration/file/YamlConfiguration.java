@@ -27,13 +27,16 @@ public class YamlConfiguration extends FileConfiguration {
     protected static final String BLANK_CONFIG = "{}\n";
     private final DumperOptions yamlOptions = new LiteralMultipleLineScalar();
     private final Representer yamlRepresenter = new YamlRepresenter();
-    private final Yaml yaml = new Yaml(new YamlConstructor(), yamlRepresenter, yamlOptions);
+    private final Yaml yaml;
+
+    public YamlConfiguration() {
+        yamlOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+        this.yaml = new Yaml(new YamlConstructor(), yamlRepresenter, yamlOptions);
+    }
 
     @Override
     public String saveToString() {
         yamlOptions.setIndent(options().indent());
-        yamlOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-        yamlRepresenter.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
 
         String header = buildHeader();
         String dump = yaml.dump(getValues(false));
