@@ -14,6 +14,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.emitter.ScalarAnalysis;
 import org.yaml.snakeyaml.error.YAMLException;
 import org.yaml.snakeyaml.representer.Representer;
 
@@ -24,7 +25,7 @@ import org.yaml.snakeyaml.representer.Representer;
 public class YamlConfiguration extends FileConfiguration {
     protected static final String COMMENT_PREFIX = "# ";
     protected static final String BLANK_CONFIG = "{}\n";
-    private final DumperOptions yamlOptions = new DumperOptions();
+    private final DumperOptions yamlOptions = new LiteralMultipleLineScalar();
     private final Representer yamlRepresenter = new YamlRepresenter();
     private final Yaml yaml = new Yaml(new YamlConstructor(), yamlRepresenter, yamlOptions);
 
@@ -207,5 +208,20 @@ public class YamlConfiguration extends FileConfiguration {
         }
 
         return config;
+    }
+    
+    /**
+     * Uses the {@link org.yaml.snakeyaml.DumperOptions.ScalarStyle#LITERAL LITERAL} style for scalars that have multiple lines
+     */
+    private static class LiteralMultipleLineScalar extends DumperOptions {
+        @Override
+        public ScalarStyle calculateScalarStyle(ScalarAnalysis analysis, ScalarStyle style) {
+            if (analysis.multiline) {
+                return DumperOptions.ScalarStyle.LITERAL;
+            } else {
+                return super.calculateScalarStyle(analysis, style);
+            }
+            
+        }
     }
 }
