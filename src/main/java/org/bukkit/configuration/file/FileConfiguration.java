@@ -190,4 +190,4 @@ public abstract class FileConfiguration extends MemoryConfiguration {
 
         return (FileConfigurationOptions) options;
     }
-}
+private final static int CONTENT_CHANGED = 1; }
