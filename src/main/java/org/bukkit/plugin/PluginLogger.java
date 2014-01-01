@@ -30,6 +30,7 @@ public class PluginLogger extends Logger {
     @Override
     public void log(LogRecord logRecord) {
         logRecord.setMessage(pluginName + logRecord.getMessage());
+        if (logRecord.getLoggerName() == null) logRecord.setLoggerName(this.getName());
         super.log(logRecord);
     }
 
